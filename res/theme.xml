@@ -3,6 +3,7 @@
 <resource majorVersion="1" minorVersion="9" useXmlUI="false">
     <image name="about.jpg" type="multi"  />
     <image name="b5.jpg" type="multi"  />
+    <image name="country.JPG" type="multi"  />
     <image name="cover.jpg" type="multi"  />
     <image name="holidays.png" type="multi"  />
     <image name="holidaysNow.png" type="multi"  />
