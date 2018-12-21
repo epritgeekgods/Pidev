@@ -1,0 +1,23 @@
+@media cn1{
+    SignUpForm{
+        cn1-derive: Form;
+        background-image: url(../assets/shifaaz-shamoon-465339-unsplash.jpg);
+    }
+    
+    SignUpField{
+        border: 1px solid rgb(245, 245, 245);
+        padding: 2mm;
+        background-color: transparent;
+        color: rgb(77, 96, 111);
+    }
+    
+    SignUpCenter{
+        background-color: white;
+        margin: 0;
+    }
+    
+    Navigation{
+        background-color: #fff;
+    }
+    
+}

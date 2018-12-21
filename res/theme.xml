@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<resource majorVersion="1" minorVersion="9" useXmlUI="false">
+    <image name="about.jpg" type="multi"  />
+    <image name="b5.jpg" type="multi"  />
+    <image name="cover.jpg" type="multi"  />
+    <image name="holidays.png" type="multi"  />
+    <image name="holidaysNow.png" type="multi"  />
+    <theme name="Theme">
+        <val key="@includeNativeBool" value="true" />
+        <val key="SideCommand.align" value="1" />
+        <val key="SideCommand.bgColor" value="e68620" />
+        <border key="SideCommand.border" type="empty" />
+        <val key="SideCommand.fgColor" value="ffffff" />
+        <font key="SideCommand.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="3.5" />
+        <val key="SideCommand.margin" value="0.0,1.0,0.0,0.0" />
+        <val key="SideCommand.padUnit" value="2,2,2,2" />
+        <val key="SideCommand.padding" value="3.0,3.0,3.0,3.0" />
+        <val key="SideCommand.press#bgColor" value="cf5e00" />
+        <val key="SideCommand.press#derive" value="SideCommand" />
+        <val key="SideCommand.sel#bgColor" value="cf5e00" />
+        <val key="SideCommand.sel#derive" value="SideCommand" />
+        <val key="SideCommand.textDecoration" value="0" />
+        <val key="SideCommand.transparency" value="255" />
+        <val key="SideNavigationPanel.bgColor" value="ffffff" />
+        <val key="SideNavigationPanel.transparency" value="255" />
+        <val key="SidemenuTagline.align" value="1" />
+        <val key="SidemenuTagline.bgColor" value="e68620" />
+        <border key="SidemenuTagline.border" type="empty" />
+        <val key="SidemenuTagline.fgColor" value="ffffff" />
+        <font key="SidemenuTagline.font" type="ttf" face="0" style="0" size="0" name="native:ItalicLight" family="native:ItalicLight" sizeSettings="3" actualSize="3.0" />
+        <val key="SidemenuTagline.margin" value="0.0,1.0,0.0,0.0" />
+        <val key="SidemenuTagline.padUnit" value="2,2,2,2" />
+        <val key="SidemenuTagline.padding" value="1.0,0.0,0.0,0.0" />
+        <val key="SidemenuTagline.textDecoration" value="0" />
+        <val key="SidemenuTagline.transparency" value="255" />
+        <val key="StatusBarSideMenu.padding" value="0.0,0.0,0.0,0.0" />
+        <val key="available.bgColor" value="33cc00" />
+        <val key="available.fgColor" value="ffffff" />
+        <font key="available.font" type="system" face="0" style="1" size="16" />
+        <val key="available.marUnit" value="2,2,2,2" />
+        <val key="available.margin" value="1.0,1.0,1.0,1.0" />
+        <val key="available.padUnit" value="2,2,2,2" />
+        <val key="available.padding" value="1.0,1.0,1.0,1.0" />
+        <val key="available.transparency" value="255" />
+        <val key="expired.bgColor" value="ff0000" />
+        <val key="expired.fgColor" value="ffffff" />
+        <font key="expired.font" type="system" face="0" style="1" size="16" />
+        <val key="expired.marUnit" value="2,2,2,2" />
+        <val key="expired.margin" value="1.0,1.0,1.0,1.0" />
+        <val key="expired.padUnit" value="2,2,2,2" />
+        <val key="expired.padding" value="1.0,1.0,1.0,1.0" />
+        <val key="expired.transparency" value="255" />
+        <border key="imageborder.border" type="line" millimeters="true" thickness="1.0" color="6710886" />
+        <val key="imageborder.padding" value="5.0,5.0,5.0,5.0" />
+        <val key="label2.fgColor" value="cccc" />
+        <val key="label2.transparency" value="255" />
+        <val key="subtitle.fgColor" value="999999" />
+        <font key="subtitle.font" type="system" face="0" style="1" size="16" />
+        <val key="subtitle.padding" value="0.0,0.0,5.0,0.0" />
+        <val key="subtitle.transparency" value="255" />
+        <font key="subtitle2.font" type="system" face="0" style="1" size="16" />
+        <val key="subtitle2.margin" value="5.0,5.0,0.0,0.0" />
+        <val key="subtitle2.padding" value="0.0,0.0,5.0,0.0" />
+        <val key="subtitle2.transparency" value="255" />
+        <val key="title.align" value="1" />
+        <val key="title.fgColor" value="000000" />
+        <font key="title.font" type="ttf" face="0" style="1" size="16" name="native:MainRegular" family="native:MainRegular" sizeSettings="2" actualSize="12.0" />
+        <val key="title.marUnit" value="2,0,2,0" />
+        <val key="title.margin" value="5.0,5.0,0.0,0.0" />
+    </theme>
+</resource>
