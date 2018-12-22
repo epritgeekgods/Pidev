@@ -31,6 +31,7 @@ import com.codename1.ui.events.SelectionListener;
 import com.codename1.ui.layouts.BorderLayout;
 import com.codename1.ui.layouts.BoxLayout;
 import com.codename1.ui.layouts.FlowLayout;
+import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.list.DefaultListModel;
 import com.codename1.ui.list.ListModel;
 import com.codename1.ui.list.MultiList;
@@ -54,14 +55,12 @@ public class ShowActiveExcursion
 {
     Form f;
     public static ArrayList<Excursion> excursions ;
+    public static boolean oldExist ;
+    public static boolean newExist ;
     public ShowActiveExcursion() 
     {
         f = new Form("My active excursions", new BorderLayout());
 
-        f.getToolbar().addCommandToRightBar("back", null, (evt) ->{
-            Acceuil A = new Acceuil();
-            A.getF().show();
-        });
         
         Tabs t = new Tabs();
         Style s = UIManager.getInstance().getComponentStyle("Tab");
@@ -69,12 +68,20 @@ public class ShowActiveExcursion
         FontImage icon2 = FontImage.createMaterial(FontImage.MATERIAL_UPDATE, s); //active
         FontImage icon3 = FontImage.createMaterial(FontImage.MATERIAL_ALARM_OFF, s); //old
         
+        FontImage back = FontImage.createMaterial(FontImage.MATERIAL_ARROW_BACK, s);
+        
+        f.getToolbar().addCommandToRightBar("", back, (evt) ->{
+            Acceuil A = new Acceuil();
+            A.getF().show();
+        });
+        
         //Active excursions
         ConnectionRequest con = new ConnectionRequest();
         con.setUrl("http://localhost/pidev/web/app_dev.php/excursion/activereservation?id="+MyApplication.current_user.getId());
         con.setPost(false);
 
         Container container1 = new Container(new BorderLayout());
+        Container Container2 = new Container();
         container1.setScrollableY(true);
         con.addResponseListener(new ActionListener<NetworkEvent>() {
             @Override
@@ -84,102 +91,143 @@ public class ShowActiveExcursion
                 try {
                     Map<String, Object> myExMap = j.parseJSON(new CharArrayReader((new String(con.getResponseData())).toCharArray()));
                     List<Map<String, Object>> list = (List<Map<String, Object>>) myExMap.get("root");
-
-                    ArrayList<Map<String, Object>> data = new ArrayList<>();
-                    data.add(createListEntry(null, null, null));
+                    System.out.println("lmap: "+ myExMap);
                     excursions = new ArrayList<>();
-                    for(Map<String, Object> obj: list)
+                    if(myExMap.get("root") == null)
                     {
                         Excursion e = new Excursion();
-
-                        e.setId((int) Float.parseFloat(obj.get("idrando").toString()));
-                        e.setDate(obj.get("daterando").toString());
-                        e.setDestination(obj.get("destination").toString());
                         excursions.add(e);
+                        System.out.println("nothing to show");
                         
-                        try 
+                        ImageViewer image = null;
+                        image = new ImageViewer(Image.createImage("/error_excursion.png"));
+                        
+                        image.setPreferredW(Display.getInstance().getDisplayWidth());
+                        Button btn_new = new Button("Enroll");
+                        
+                        image.getStyle().setMarginTop(100);
+
+                        btn_new.getStyle().setBgColor(0x00adef);
+                        btn_new.getStyle().setFgColor(0xffffff);
+                        btn_new.getStyle().setBgTransparency(255);
+                       
+                        
+                        btn_new.addActionListener(new ActionListener<ActionEvent>() {
+                            @Override
+                            public void actionPerformed(ActionEvent evt) {
+                                //container1.setEnabled(false);
+                                //Container2.setEnabled(true);
+                                //f.
+                                //f.add(BorderLayout.CENTER, Container2);
+                            }
+                        });
+                        
+                        Container btn = new Container(new GridLayout(1, 3));
+                        btn.add(new Label(""));
+                        btn.add(btn_new);
+                        btn.add(new Label(""));
+
+                        Container error = new Container(new BoxLayout(BoxLayout.Y_AXIS));
+                        error.add(image);
+                        error.add(btn);
+                        container1.add(BorderLayout.CENTER, error);
+                        container1.setScrollableY(false);
+                        //container1.add(BorderLayout.CENTER, btn_new);
+                    }
+                    else
+                    {
+                        ArrayList<Map<String, Object>> data = new ArrayList<>();
+                        data.add(createListEntry(null, null, null));
+
+                        for(Map<String, Object> obj: list)
                         {
-                            EncodedImage placeholder = EncodedImage.create("/load.gif");
+                            Excursion e = new Excursion();
+                            e.setId((int) Float.parseFloat(obj.get("idrando").toString()));
+                            e.setDate(obj.get("daterando").toString());
+                            e.setDestination(obj.get("destination").toString());
+                            excursions.add(e);
 
-                            String url = "http://localhost/pidev/web/uploads/";
-                            String imgString = obj.get("imgurl1").toString();
-                            String path = url+ imgString;
+                            try 
+                            {
+                                EncodedImage placeholder = EncodedImage.create("/load.gif");
 
-                            Image image = URLImage.createToStorage(placeholder, imgString , path, URLImage.RESIZE_SCALE);
+                                String url = "http://localhost/pidev/web/uploads/";
+                                String imgString = obj.get("imgurl1").toString();
+                                String path = url+ imgString;
 
-                            Button btn = new Button("check");
-                            data.add(createListEntry(obj.get("destination").toString(), obj.get("daterando").toString(), image));
+                                Image image = URLImage.createToStorage(placeholder, imgString , path, URLImage.RESIZE_SCALE);
 
-                            DefaultListModel<Map<String, Object>> model = new DefaultListModel<>(data);
-                            MultiList ml = new MultiList(model);
+                                data.add(createListEntry(obj.get("destination").toString(), obj.get("daterando").toString(), image));
+                                DefaultListModel<Map<String, Object>> model = new DefaultListModel<>(data);
+                                MultiList ml = new MultiList(model);
 
-                            ml.addSelectionListener(new SelectionListener() {
-                                @Override
-                                public void selectionChanged(int oldSelected, int newSelected) {
+                                ml.addSelectionListener(new SelectionListener() {
+                                    @Override
+                                    public void selectionChanged(int oldSelected, int newSelected) {
 
-                                    Map<String, Object> item = (Map<String, Object>) (ml.getSelectedItem());
-                                    System.out.println("newSeleted: "+ item); 
-                                    while(item.get("Line1") != null && (oldSelected != newSelected))
-                                    {
-                                        if(Dialog.show("?", "Do you readdly want to disjoin this excursion " + item.get("Line1")+ "?", "Confirm", "Cancel"))
+                                        Map<String, Object> item = (Map<String, Object>) (ml.getSelectedItem());
+                                        System.out.println("newSeleted: "+ item); 
+                                        while(item.get("Line1") != null && (oldSelected != newSelected))
                                         {
-                                            Excursion E = new Excursion();
-                                            for(int i=0; i< excursions.size(); i++)
+                                            if(Dialog.show("?", "Do you readdly want to disjoin this excursion " + item.get("Line1")+ "?", "Confirm", "Cancel"))
                                             {
-
-                                                if(excursions.get(i).getDestination().equals(item.get("Line1")) &&
-                                                    excursions.get(i).getDate().equals(item.get("Line2")))
+                                                Excursion E = new Excursion();
+                                                for(int i=0; i< excursions.size(); i++)
                                                 {
-                                                    E = excursions.get(i);
-                                                    System.out.println("exxcuriosn:: "+excursions.get(i));
-                                                    break;
-                                                }
-                                            }
-                                            System.out.println("confirmed on: " + E.getId());
 
-
-                                            ConnectionRequest con = new ConnectionRequest();
-                                            con.setUrl("http://localhost/pidev/web/app_dev.php/excursion/unenroll?excursion="+E.getId()+"&user="+MyApplication.current_user.getId());
-                                            con.setPost(false);
-
-                                            con.addResponseListener(new ActionListener<NetworkEvent>() {
-                                                @Override
-                                                public void actionPerformed(NetworkEvent evt) {
-                                                    JSONParser j = new JSONParser();
-
-                                                    try {
-                                                        Map<String, Object> exMap = j.parseJSON(new CharArrayReader((new String(con.getResponseData())).toCharArray()));
-
-                                                        System.out.println("map: " + exMap);
-                                                        int id = (int) Float.parseFloat(exMap.get("id").toString());
-
-                                                        if(id == 0)
+                                                    if(excursions.get(i).getDestination().equals(item.get("Line1")) &&
+                                                        excursions.get(i).getDate().equals(item.get("Line2")))
                                                         {
-                                                            if(Dialog.show("Success", "You have successfully diskoined this excursion", "OK", null))
-                                                            {
-                                                                ShowActiveExcursion ser = new ShowActiveExcursion();
-                                                                ser.getF().show();
-                                                            }
+                                                            E = excursions.get(i);
+                                                            System.out.println("exxcuriosn:: "+excursions.get(i));
+                                                            break;
                                                         }
-
-                                                    } catch (IOException ex) {
-                                                    }
                                                 }
-                                            });
-                                            NetworkManager.getInstance().addToQueueAndWait(con);
-                                            break; 
-                                        }
-                                        else{
-                                            break;
+                                                System.out.println("confirmed on: " + E.getId());
+
+
+                                                ConnectionRequest con = new ConnectionRequest();
+                                                con.setUrl("http://localhost/pidev/web/app_dev.php/excursion/unenroll?excursion="+E.getId()+"&user="+MyApplication.current_user.getId());
+                                                con.setPost(false);
+
+                                                con.addResponseListener(new ActionListener<NetworkEvent>() {
+                                                    @Override
+                                                    public void actionPerformed(NetworkEvent evt) {
+                                                        JSONParser j = new JSONParser();
+
+                                                        try {
+                                                            Map<String, Object> exMap = j.parseJSON(new CharArrayReader((new String(con.getResponseData())).toCharArray()));
+
+                                                            System.out.println("map: " + exMap);
+                                                            int id = (int) Float.parseFloat(exMap.get("id").toString());
+
+                                                            if(id == 0)
+                                                            {
+                                                                if(Dialog.show("Success", "You have successfully diskoined this excursion", "OK", null))
+                                                                {
+                                                                    ShowActiveExcursion ser = new ShowActiveExcursion();
+                                                                    ser.getF().show();
+                                                                }
+                                                            }
+
+                                                        } catch (IOException ex) {
+                                                        }
+                                                    }
+                                                });
+                                                NetworkManager.getInstance().addToQueueAndWait(con);
+                                                break; 
+                                            }
+                                            else{
+                                                break;
+                                            }
                                         }
                                     }
-                                }
-                            });
+                                });
 
-                            container1.add(BorderLayout.CENTER, ml);
-                            //f.add(BorderLayout.CENTER, ml);
-                        } 
-                        catch (IOException ex) {}
+                                container1.add(BorderLayout.CENTER, ml);
+                            } 
+                            catch (IOException ex) {}
+                        }
                     }
 
                 } 
@@ -189,13 +237,10 @@ public class ShowActiveExcursion
         NetworkManager.getInstance().addToQueueAndWait(con);
 
         //All active Excursions
-        Container Container2 = new Container();
         ServiceExcursion ser = new ServiceExcursion();
         ArrayList<Excursion> excursions = new ArrayList<>();
-        
-        
-        
         excursions = ser.getList2();
+        
         f.getToolbar().addCommandToRightBar("back", null, (evt) ->{
             Acceuil A = new Acceuil();
             A.getF().show();
@@ -224,7 +269,7 @@ public class ShowActiveExcursion
 
                     String url = "http://localhost/pidev/web/uploads/";
                     EncodedImage eimg;
-                    eimg = EncodedImage.create("/load.gif");
+                        eimg = EncodedImage.create("/load.gif");
                     eimg.scale(300,300);
                     Image img = URLImage.createToStorage(eimg, E.getImg1(), url + E.getImg1(), URLImage.RESIZE_SCALE);
 
@@ -288,22 +333,20 @@ public class ShowActiveExcursion
                             int place = (int)E.getCapacite() - (int)E.getNbre();
                             Label nbre= new Label("Available: "+ place);
                             C.add(destination);
-                            
-                            
-                            
-                             try {
-                                eimg = EncodedImage.create("/load.gif");
-                                eimg.scale(300,300);
-                                Image img = URLImage.createToStorage(eimg, E.getImg1(), url + E.getImg1(), URLImage.RESIZE_SCALE);
 
-                                //System.out.println("img: "+ img.getImageName());
-                                ImageViewer imgv = new ImageViewer(img);
-                                int deviceWidth = Display.getInstance().getDisplayWidth();
-                                int imageWidth =(int) (deviceWidth *0.8);
-                                int imageHeight =(int) (deviceWidth *0.6);
-                                imgv.setPreferredH(imageHeight);
-                                imgv.setPreferredW(imageWidth);
-                                C.add(imgv);
+                            try {
+                               eimg = EncodedImage.create("/load.gif");
+                               eimg.scale(300,300);
+                               Image img = URLImage.createToStorage(eimg, E.getImg1(), url + E.getImg1(), URLImage.RESIZE_SCALE);
+
+                               //System.out.println("img: "+ img.getImageName());
+                               ImageViewer imgv = new ImageViewer(img);
+                               int deviceWidth = Display.getInstance().getDisplayWidth();
+                               int imageWidth =(int) (deviceWidth *0.8);
+                               int imageHeight =(int) (deviceWidth *0.6);
+                               imgv.setPreferredH(imageHeight);
+                               imgv.setPreferredW(imageWidth);
+                               C.add(imgv);
                                 
                             } catch (IOException ex1) {
                             }
@@ -368,9 +411,7 @@ public class ShowActiveExcursion
                                                                 ShowActiveExcursion s = new ShowActiveExcursion();
                                                                 s.getF().show();
                                                              }
-                                                        }
-                                                        
-                                                        
+                                                        }  
                                                     } catch (IOException ex) {
                                                     }
                                                 }
@@ -405,35 +446,66 @@ public class ShowActiveExcursion
             }
        
         //old excursions
-        
         Container Container3 = new Container(new BorderLayout());
         
         ArrayList<Excursion> oldExcursions = ser.getMyOldList();
         ArrayList<Map<String, Object>> data = new ArrayList<>();
         data.add(createListEntry(null, null, null));
-        for(Excursion E : oldExcursions)
+        
+        for(int i=0; i<oldExcursions.size(); i++)
         {
-            try 
+            if(oldExcursions.get(i).getId() == 0)
             {
-                EncodedImage placeholder = EncodedImage.create("/load.gif");
-
-                String url = "http://localhost/pidev/web/uploads/";
-                String imgString = E.getImg1();
-                String path = url+ imgString;
-
-                Image image = URLImage.createToStorage(placeholder, imgString , path, URLImage.RESIZE_SCALE);
-
-                Button btn = new Button("check");
-                data.add(createListEntry(E.getDestination(), E.getDate(), image));
-
-                DefaultListModel<Map<String, Object>> model = new DefaultListModel<>(data);
-                MultiList ml = new MultiList(model);
-
-                Container3.add(BorderLayout.CENTER, ml);
-               
-            } 
-            catch (IOException ex) {}
+                oldExist = false;
+                break;   
+            }
+            else
+              oldExist =true;      
         }
+        
+        
+        if(oldExist)
+        {
+            for(Excursion E : oldExcursions)
+            {
+                try 
+                {
+                    EncodedImage placeholder = EncodedImage.create("/load.gif");
+
+                    String url = "http://localhost/pidev/web/uploads/";
+                    String imgString = E.getImg1();
+                    String path = url+ imgString;
+
+                    Image image = URLImage.createToStorage(placeholder, imgString , path, URLImage.RESIZE_SCALE);
+
+                    Button btn = new Button("check");
+                    data.add(createListEntry(E.getDestination(), E.getDate(), image));
+
+                    DefaultListModel<Map<String, Object>> model = new DefaultListModel<>(data);
+                    MultiList ml = new MultiList(model);
+
+                    Container3.add(BorderLayout.CENTER, ml);
+
+                } 
+                catch (IOException ex) {}
+            }
+        }
+        else{
+            
+            ImageViewer image = null;
+            try {
+                image = new ImageViewer(Image.createImage("/error_excursion.png"));
+            } catch (IOException ex) {
+            }
+
+            image.setPreferredW(Display.getInstance().getDisplayWidth());
+
+
+            image.getStyle().setMarginTop(100);
+
+            Container3.add(BorderLayout.CENTER, image);
+        }
+        
         
         
         
@@ -443,6 +515,7 @@ public class ShowActiveExcursion
         t.addTab("Excursion", icon1, Container2);
         t.addTab("Active", icon2, container1);
         t.addTab("Old",icon3, Container3);
+        
 
         t.setScrollableY(true);
         f.setScrollableY(true);

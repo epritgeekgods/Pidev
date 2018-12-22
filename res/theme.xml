@@ -3,10 +3,12 @@
 <resource majorVersion="1" minorVersion="9" useXmlUI="false">
     <image name="about.jpg" type="multi"  />
     <image name="b5.jpg" type="multi"  />
-    <image name="country.JPG" type="multi"  />
     <image name="cover.jpg" type="multi"  />
-    <image name="holidays.png" type="multi"  />
+    <image name="error_excursion.png" type="multi"  />
     <image name="holidaysNow.png" type="multi"  />
+    <image name="i1.JPG" type="multi"  />
+    <image name="i2.JPG" type="multi"  />
+    <image name="i3.JPG" type="multi"  />
     <theme name="Theme">
         <val key="@includeNativeBool" value="true" />
         <val key="SideCommand.align" value="1" />
@@ -44,6 +46,9 @@
         <val key="available.padUnit" value="2,2,2,2" />
         <val key="available.padding" value="1.0,1.0,1.0,1.0" />
         <val key="available.transparency" value="255" />
+        <val key="details.fgColor" value="f2994a" />
+        <font key="details.font" type="ttf" face="0" style="1" size="16" name="native:MainRegular" family="native:MainRegular" sizeSettings="0" actualSize="5.0" />
+        <val key="details.transparency" value="255" />
         <val key="expired.bgColor" value="ff0000" />
         <val key="expired.fgColor" value="ffffff" />
         <font key="expired.font" type="system" face="0" style="1" size="16" />
@@ -52,10 +57,16 @@
         <val key="expired.padUnit" value="2,2,2,2" />
         <val key="expired.padding" value="1.0,1.0,1.0,1.0" />
         <val key="expired.transparency" value="255" />
+        <val key="image.margin" value="0.0,0.0,0.0,0.0" />
+        <val key="image.padding" value="0.0,0.0,0.0,0.0" />
         <border key="imageborder.border" type="line" millimeters="true" thickness="1.0" color="6710886" />
         <val key="imageborder.padding" value="5.0,5.0,5.0,5.0" />
         <val key="label2.fgColor" value="cccc" />
         <val key="label2.transparency" value="255" />
+        <val key="paragraph.fgColor" value="000000" />
+        <font key="paragraph.font" type="system" face="0" style="1" size="16" />
+        <val key="paragraph.margin" value="0.0,0.0,0.0,0.0" />
+        <val key="paragraph.transparency" value="255" />
         <val key="subtitle.fgColor" value="999999" />
         <font key="subtitle.font" type="system" face="0" style="1" size="16" />
         <val key="subtitle.padding" value="0.0,0.0,5.0,0.0" />
@@ -69,5 +80,10 @@
         <font key="title.font" type="ttf" face="0" style="1" size="16" name="native:MainRegular" family="native:MainRegular" sizeSettings="2" actualSize="12.0" />
         <val key="title.marUnit" value="2,0,2,0" />
         <val key="title.margin" value="5.0,5.0,0.0,0.0" />
+        <val key="title2.align" value="1" />
+        <val key="title2.fgColor" value="000000" />
+        <font key="title2.font" type="ttf" face="0" style="1" size="16" name="native:MainRegular" family="native:MainRegular" sizeSettings="2" actualSize="12.0" />
+        <val key="title2.marUnit" value="2,0,2,0" />
+        <val key="title2.margin" value="0.0,0.0,0.0,0.0" />
     </theme>
 </resource>

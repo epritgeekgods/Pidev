@@ -1,7 +1,5 @@
 package com.mycompany.myapp;
 
-import com.codename1.components.ImageViewer;
-import com.codename1.components.SpanLabel;
 import static com.codename1.ui.CN.*;
 
 import com.codename1.ui.Form;
@@ -10,22 +8,9 @@ import com.codename1.ui.Dialog;
 import com.codename1.ui.plaf.UIManager;
 import com.codename1.ui.util.Resources;
 import com.codename1.io.Log;
-import com.codename1.ui.Component;
-import com.codename1.ui.Container;
-import com.codename1.ui.Display;
-import com.codename1.ui.FontImage;
-import com.codename1.ui.Image;
-import com.codename1.ui.Label;
 import com.codename1.ui.Toolbar;
-import com.codename1.ui.layouts.BorderLayout;
-import com.codename1.ui.layouts.BoxLayout;
-import com.codename1.ui.layouts.GridLayout;
-import com.codename1.ui.plaf.Style;
-import java.io.IOException;
 import pidev.esprit.Entity.User;
 import pidev.esprit.gui.Acceuil;
-import pidev.esprit.gui.AffichageExcursion;
-import pidev.esprit.gui.Login;
 
 public class MyApplication {
 

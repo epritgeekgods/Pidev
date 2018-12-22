@@ -93,52 +93,62 @@ public class ServiceExcursion
                     Map<String, Object> myOldMap = j.parseJSON(new CharArrayReader((new String(con.getResponseData())).toCharArray()));
                     List<Map<String, Object>> list = (List<Map<String, Object>>) myOldMap.get("root");
                     System.out.println("map: "+ myOldMap);
-                    for(Map<String, Object> obj: list)
+                    if(myOldMap.get("root") == null)
                     {
                         Excursion e = new Excursion();
-                        String id = obj.get("idrando").toString();
-                        if(id != null)
-                            e.setId((int) Float.parseFloat(id));
-                        
-                        String capacite = obj.get("capacite").toString();
-                        if(capacite != null)
-                            e.setCapacite((int) Float.parseFloat(capacite));
-                        
-                        String date = obj.get("daterando").toString();
-                        if(date != null)
-                            e.setDate(date);
-                        
-                        String destination = obj.get("destination").toString();
-                        if(destination != null)
-                            e.setDestination(destination);
-                        
-                        String prixpersonne = obj.get("prixpersonne").toString();
-                        if(prixpersonne != null)
-                            e.setPrix(Float.parseFloat(prixpersonne));
-                        
-                       String programme = obj.get("programme").toString();
-                       if(programme != null)
-                           e.setProgramme(programme);
-                       
-                       String googlemaps = obj.get("googlemaps").toString();
-                       if(googlemaps != null)
-                           e.setGooglemap(googlemaps);
-                       
-                       String imgurl1 = obj.get("imgurl1").toString();
-                       if(imgurl1 != null)
-                           e.setImg1(imgurl1);
-                       
-                       String imgurl2 = obj.get("imgurl2").toString();
-                       if(imgurl2 != null)
-                           e.setImg2(imgurl2);
-                       
-                       String imgurl3 = obj.get("imgurl3").toString();
-                       if(imgurl3 != null)
-                           e.setImg3(imgurl3);
-                       
-                        myOldListExcursions.add(e);
-
+                         myOldListExcursions.add(e);
+                         System.out.println("nothing to show");
                     }
+                    else
+                    {
+                        for(Map<String, Object> obj: list)
+                        {
+                            Excursion e = new Excursion();
+                            String id = obj.get("idrando").toString();
+                            if(id != null)
+                                e.setId((int) Float.parseFloat(id));
+
+                            String capacite = obj.get("capacite").toString();
+                            if(capacite != null)
+                                e.setCapacite((int) Float.parseFloat(capacite));
+
+                            String date = obj.get("daterando").toString();
+                            if(date != null)
+                                e.setDate(date);
+
+                            String destination = obj.get("destination").toString();
+                            if(destination != null)
+                                e.setDestination(destination);
+
+                            String prixpersonne = obj.get("prixpersonne").toString();
+                            if(prixpersonne != null)
+                                e.setPrix(Float.parseFloat(prixpersonne));
+
+                           String programme = obj.get("programme").toString();
+                           if(programme != null)
+                               e.setProgramme(programme);
+
+                           String googlemaps = obj.get("googlemaps").toString();
+                           if(googlemaps != null)
+                               e.setGooglemap(googlemaps);
+
+                           String imgurl1 = obj.get("imgurl1").toString();
+                           if(imgurl1 != null)
+                               e.setImg1(imgurl1);
+
+                           String imgurl2 = obj.get("imgurl2").toString();
+                           if(imgurl2 != null)
+                               e.setImg2(imgurl2);
+
+                           String imgurl3 = obj.get("imgurl3").toString();
+                           if(imgurl3 != null)
+                               e.setImg3(imgurl3);
+
+                            myOldListExcursions.add(e);
+
+                        }
+                    }
+                    
                 } catch (IOException ex) {
                 }
             }

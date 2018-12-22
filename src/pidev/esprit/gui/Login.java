@@ -32,6 +32,7 @@ import java.io.IOException;
 
 import pidev.esprit.Entity.User;
 import pidev.esprit.Service.ServiceUser;
+import static pidev.esprit.gui.Acceuil.path;
 
 /**
  *
@@ -148,10 +149,19 @@ public class Login
                 if(utilisateur.getId() > 0)
                 {
                     System.out.println("id user connected: "+utilisateur.getId());
-                   
-                    Acceuil A = new Acceuil();
-                    A.getF().show();
                     System.out.println("user authetificated");
+                    if( path.equals("excursion"))
+                    {
+                        ShowActiveExcursion s = new ShowActiveExcursion();
+                        s.getF().show();
+                    }
+                    else
+                    {
+                        Acceuil A = new Acceuil();
+                        A.getF().show();
+                    }
+                    
+                    
                     LocalNotification n = new LocalNotification();
                     n.setId("demo-notification");
                     n.setAlertBody("It's time to take a break and look at me");
