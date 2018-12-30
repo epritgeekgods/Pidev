@@ -5,14 +5,55 @@
     <image name="b5.jpg" type="multi"  />
     <image name="cover.jpg" type="multi"  />
     <image name="error_excursion.png" type="multi"  />
+    <image name="form.png" type="multi"  />
+    <image name="form2.png" type="multi"  />
     <image name="holidaysNow.png" type="multi"  />
     <image name="i1.JPG" type="multi"  />
     <image name="i2.JPG" type="multi"  />
     <image name="i3.JPG" type="multi"  />
     <theme name="Theme">
         <val key="@includeNativeBool" value="true" />
+        <val key="Dialog.bgColor" value="cccccc" />
+        <gradient key="Dialog.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="Dialog.bgType" value="0" />
+        <border key="Dialog.border" type="line" millimeters="true" thickness="1.5" color="10066329" />
+        <val key="Dialog.marUnit" value="2,2,2,2" />
+        <val key="Dialog.margin" value="1.0,1.0,1.0,1.0" />
+        <val key="Dialog.padUnit" value="2,2,2,2" />
+        <val key="Dialog.padding" value="0.0,0.0,0.0,0.0" />
+        <val key="Dialog.transparency" value="255" />
+        <val key="DialogBody.align" value="4" />
+        <val key="DialogBody.fgColor" value="ffffff" />
+        <font key="DialogBody.font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="3" actualSize="3.0" />
+        <val key="DialogBody.margin" value="0.0,0.0,0.0,0.0" />
+        <val key="DialogBody.padUnit" value="2,2,2,2" />
+        <val key="DialogBody.padding" value="2.0,2.0,3.0,3.0" />
+        <val key="DialogBody.transparency" value="0" />
+        <val key="DialogButton.align" value="4" />
+        <gradient key="DialogButton.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="DialogButton.bgType" value="0" />
+        <val key="DialogButton.fgColor" value="ffffff" />
+        <font key="DialogButton.font" type="ttf" face="0" style="0" size="0" name="native:MainRegular" family="native:MainRegular" sizeSettings="1" actualSize="12.0" />
+        <val key="DialogButton.margin" value="0.0,0.0,0.0,0.0" />
+        <val key="DialogButton.padUnit" value="2,2,2,2" />
+        <val key="DialogButton.padding" value="1.0,1.0,1.0,1.0" />
+        <val key="DialogButton.transparency" value="0" />
+        <gradient key="DialogCommandArea.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="DialogCommandArea.bgType" value="0" />
+        <val key="DialogCommandArea.padding" value="0.0,0.0,0.0,0.0" />
+        <val key="DialogCommandArea.transparency" value="0" />
+        <val key="DialogTitle.align" value="4" />
+        <gradient key="DialogTitle.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="DialogTitle.bgType" value="0" />
+        <val key="DialogTitle.fgColor" value="ffffff" />
+        <font key="DialogTitle.font" type="ttf" face="0" style="0" size="0" name="native:MainBold" family="native:MainBold" sizeSettings="3" actualSize="4.0" />
+        <val key="DialogTitle.transparency" value="0" />
+        <val key="Form.bgColor" value="ffffff" />
+        <val key="Form.transparency" value="255" />
         <val key="SideCommand.align" value="1" />
         <val key="SideCommand.bgColor" value="e68620" />
+        <gradient key="SideCommand.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="SideCommand.bgType" value="0" />
         <border key="SideCommand.border" type="empty" />
         <val key="SideCommand.fgColor" value="ffffff" />
         <font key="SideCommand.font" type="ttf" face="0" style="0" size="0" name="native:MainLight" family="native:MainLight" sizeSettings="3" actualSize="3.5" />
@@ -38,6 +79,10 @@
         <val key="SidemenuTagline.textDecoration" value="0" />
         <val key="SidemenuTagline.transparency" value="255" />
         <val key="StatusBarSideMenu.padding" value="0.0,0.0,0.0,0.0" />
+        <gradient key="TitleArea.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="TitleArea.bgType" value="0" />
+        <border key="TitleArea.border" type="image" i1="form.png" i2="form.png" i3="form2.png" i4="form2.png" i5="form.png" i6="form.png" i7="form.png" i8="form.png" i9="form2.png" />
+        <val key="TitleArea.fgColor" value="ffffff" />
         <val key="available.bgColor" value="33cc00" />
         <val key="available.fgColor" value="ffffff" />
         <font key="available.font" type="system" face="0" style="1" size="16" />
@@ -46,6 +91,9 @@
         <val key="available.padUnit" value="2,2,2,2" />
         <val key="available.padding" value="1.0,1.0,1.0,1.0" />
         <val key="available.transparency" value="255" />
+        <border key="cont_ex.border" type="line" millimeters="false" thickness="1.0" color="10066329" />
+        <val key="cont_ex.marUnit" value="2,2,2,2" />
+        <val key="cont_ex.margin" value="0.0,5.0,10.0,10.0" />
         <val key="details.fgColor" value="f2994a" />
         <font key="details.font" type="ttf" face="0" style="1" size="16" name="native:MainRegular" family="native:MainRegular" sizeSettings="0" actualSize="5.0" />
         <val key="details.transparency" value="255" />
@@ -57,10 +105,11 @@
         <val key="expired.padUnit" value="2,2,2,2" />
         <val key="expired.padding" value="1.0,1.0,1.0,1.0" />
         <val key="expired.transparency" value="255" />
-        <val key="image.margin" value="0.0,0.0,0.0,0.0" />
-        <val key="image.padding" value="0.0,0.0,0.0,0.0" />
+        <val key="image.align" value="4" />
         <border key="imageborder.border" type="line" millimeters="true" thickness="1.0" color="6710886" />
         <val key="imageborder.padding" value="5.0,5.0,5.0,5.0" />
+        <gradient key="label2.bgGradient" color1="0" color2="0" posX="0.5" posY="0.5" radius="1.0" />
+        <val key="label2.bgType" value="0" />
         <val key="label2.fgColor" value="cccc" />
         <val key="label2.transparency" value="255" />
         <val key="paragraph.fgColor" value="000000" />

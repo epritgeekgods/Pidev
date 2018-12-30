@@ -27,6 +27,7 @@ import com.codename1.ui.layouts.GridLayout;
 import com.codename1.ui.layouts.LayeredLayout;
 import com.codename1.ui.plaf.RoundBorder;
 import com.codename1.ui.plaf.Style;
+import com.codename1.ui.plaf.UIManager;
 import com.mycompany.myapp.MyApplication;
 import java.io.IOException;
 
@@ -44,63 +45,21 @@ public class Login
 
     public Login() 
     {
-        f = new Form("Login", new BorderLayout(BorderLayout.CENTER_BEHAVIOR_CENTER));
+        f = new Form("  Login", new BorderLayout(BorderLayout.CENTER_BEHAVIOR_CENTER));
         
-        try {
+        try 
+        {
             Image image = Image.createImage("/b5.jpg");
             f.setBgImage(image);
-        } catch (IOException ex) {
-        }
+        } catch (IOException ex) {}
         
-        f.getToolbar().addCommandToRightBar("back", null, (evt) ->{
+        Style s = UIManager.getInstance().getComponentStyle("Tab");
+        FontImage back = FontImage.createMaterial(FontImage.MATERIAL_ARROW_BACK, s);
+        
+        f.getToolbar().addCommandToRightBar("", back, (evt) ->{
             Acceuil A = new Acceuil();
             A.getF().show();
         });
-        
-        
-        /*TextField user = new TextField();
-        user.setHint("Username");
-        TextField password = new TextField();
-        password.setHint("Password");
-        password.setConstraint(TextField.PASSWORD);
-        
-        Container C = new Container(new BoxLayout(BoxLayout.Y_AXIS));
-        C.add(user);
-        C.add(password);
-        
-        Button signin = new Button("Sign In");
-        C.add(signin);
-        
-        signin.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent evt) {
-                ServiceUser ser = new ServiceUser();
-                User utilisateur = new User();
-                ser.login(user.getText(), password.getText());
-                 utilisateur = (User) MyApplication.current_user;
-                if(utilisateur.getId() > 0)
-                {
-                    System.out.println("id user connected: "+utilisateur.getId());
-                   
-                    Acceuil A = new Acceuil();
-                    A.getF().show();
-                    System.out.println("user authetificated");
-                }
-                else if (utilisateur.getId() == 0){
-                    System.out.println("password incorrect");
-                }
-                else{
-                    System.out.println("error login");
-                }
-            }
-        });
-        
-        f.add(C);*/
-        
-        
-        
-        
-        
         
         Button ok = new Button("OK");
         Button cancel = new Button("Cancel");
@@ -115,29 +74,25 @@ public class Login
         TextField passwords = new TextField("", "Password", 20, TextArea.PASSWORD);
         Style loginStyle = login.getAllStyles();
         Stroke borderStroke = new Stroke(2, Stroke.CAP_SQUARE, Stroke.JOIN_MITER, 1);
-        loginStyle.setBorder(RoundBorder.create().
-                rectangle(true).
-                color(0xffffff).
-                strokeColor(0).
-                strokeOpacity(120).
-                stroke(borderStroke));
+        loginStyle.setBorder(RoundBorder.create().rectangle(true).color(0xffffff).strokeColor(0).strokeOpacity(120).stroke(borderStroke));
+        
         loginStyle.setMarginUnit(Style.UNIT_TYPE_DIPS);
         loginStyle.setMargin(Component.BOTTOM, 3);
         Style passwordStyle = passwords.getAllStyles();
-        passwordStyle.setBorder(RoundBorder.create().
-                rectangle(true).
-                color(0xffffff).
-                strokeColor(0).
-                strokeOpacity(120).
-                stroke(borderStroke));
-
-
+        passwordStyle.setBorder(RoundBorder.create().rectangle(true).color(0xffffff).strokeColor(0).strokeOpacity(120).stroke(borderStroke));
+        
+        ok.getStyle().setBgColor(0xCCCCCC);
+        ok.getStyle().setBgTransparency(255);
+        
+        cancel.getStyle().setBgColor(0xCCCCCC);
+        cancel.getStyle().setBgTransparency(255);
+        
         Container box = BoxLayout.encloseY(
                 loginLabel,
                 login,
                 passwordLabel,
                 passwords,
-                    GridLayout.encloseIn(2, cancel, ok));
+                GridLayout.encloseIn(2, cancel, ok));
 
         ok.addActionListener(new ActionListener() {
             @Override
@@ -150,12 +105,17 @@ public class Login
                 {
                     System.out.println("id user connected: "+utilisateur.getId());
                     System.out.println("user authetificated");
-                    if( path.equals("excursion"))
+                    if( Acceuil.path.equals("excursion"))
                     {
-                        ShowActiveExcursion s = new ShowActiveExcursion();
+                        GuiExcursion s = new GuiExcursion();
                         s.getF().show();
                     }
-                    else
+                    else if( Acceuil.path.equals("Event"))
+                    {
+                        GuiEvent ev = new GuiEvent();
+                        ev.getF().show();
+                    }
+                    else if(Acceuil.path.equals("acceuil"))
                     {
                         Acceuil A = new Acceuil();
                         A.getF().show();

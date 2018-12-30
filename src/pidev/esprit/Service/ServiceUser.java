@@ -11,7 +11,6 @@ import com.codename1.io.JSONParser;
 import com.codename1.io.NetworkEvent;
 import com.codename1.io.NetworkManager;
 import com.codename1.ui.Dialog;
-import com.codename1.ui.events.ActionEvent;
 import com.codename1.ui.events.ActionListener;
 import com.mycompany.myapp.MyApplication;
 import java.io.IOException;
@@ -37,7 +36,8 @@ public class ServiceUser
                 JSONParser j = new JSONParser();
                 Map<String, Object> u;
                 User user = new User();
-                try {
+                try 
+                {
                     u = j.parseJSON(new CharArrayReader(json.toCharArray()));
                     float id = Float.parseFloat(u.get("id").toString());
                     
@@ -54,7 +54,6 @@ public class ServiceUser
                             System.out.println("empty last name");
                         }
                             
-                        
                         if(u.get("prenom") != null)
                            user.setPrenom(u.get("prenom").toString());
                         else
@@ -62,38 +61,26 @@ public class ServiceUser
                             user.setPrenom(""); 
                             System.out.println("empty name");
                         }
-                           
-                        
                         user.setUsername(u.get("username").toString());
-                        System.out.println("user: "+username);
-                        Dialog.show("Success","Hello Mr. "+username+"", null, "OK");
-
                     }
                     else if((int) id == 0)
                     {
                         //password invalid
                         user.setId(0);
-                        //System.out.println("invalid password");
-                        Dialog.show("Error","Hello Mr. "+username+" your password is incorrect", null, "OK");
-                        
+                        Dialog.show("Error","Hello Mr. "+username+" your password is incorrect", "OK", null);
                     }
                     else
                     {
-                        // (int)id = -1
                         //username invalid
                         user.setId(-1); 
-                        Dialog.show("Error","There is no data registred for this username", null, "OK");
-                        System.out.println("invalid login");
+                        Dialog.show("Error","There is no data registred for this username", "OK", null);
                     }
                     MyApplication.current_user = user;
-                        
-                    //return user;
-                } catch (IOException ex) {
-                }     
+                    
+                } catch (IOException ex) {}     
             }
         });
         NetworkManager.getInstance().addToQueueAndWait(con);  
     }
             
-    
 }

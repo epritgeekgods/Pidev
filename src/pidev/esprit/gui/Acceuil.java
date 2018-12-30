@@ -26,7 +26,10 @@ import com.codename1.ui.plaf.Style;
 import com.codename1.ui.plaf.UIManager;
 import com.mycompany.myapp.MyApplication;
 import java.io.IOException;
+import java.util.ArrayList;
+import pidev.esprit.Entity.Event;
 import pidev.esprit.Entity.User;
+import pidev.esprit.Service.ServiceEvent;
 /**
  *
  * @author STA
@@ -55,14 +58,16 @@ public class Acceuil {
         tb.addComponentToSideMenu(topBar);
         
         tb.addMaterialCommandToSideMenu("Home" , FontImage.MATERIAL_HOME, e ->{
+            path = "acceuil";
             f.show();
+            
         });
         
         
         tb.addMaterialCommandToSideMenu("Excursion" , FontImage.MATERIAL_HIGHLIGHT, e ->{
             if(MyApplication.current_user.getId()> 0)
             {
-                ShowActiveExcursion s = new ShowActiveExcursion();
+                GuiExcursion s = new GuiExcursion();
                 s.getF().show();
             }
             else{
@@ -74,12 +79,65 @@ public class Acceuil {
         });
         
         tb.addMaterialCommandToSideMenu("Flight" , FontImage.MATERIAL_FLIGHT, e ->{ 
+            if(MyApplication.current_user.getId()> 0)
+            {
+                ShowActiveVoyage v;
+                try 
+                {
+                    v = new ShowActiveVoyage();
+                    v.getF().show();
+                } catch (IOException ex) {}
+
+            }
+            else{
+                path = "flight";
+                System.out.println("path: flight");
+                Login login = new Login();
+                login.getF().show();
+            }
         });
+        
+        if(MyApplication.current_user.getId()> 0){
+            tb.addMaterialCommandToSideMenu("Booking", FontImage.MATERIAL_SEARCH, ev->{
+                ShowActiveVoyage v;
+                try 
+                {
+                  v = new ShowActiveVoyage();
+                  v.getF().show();
+                } catch (IOException ex) {}
+
+            });
+          
+            tb.addMaterialCommandToSideMenu("My reservations", FontImage.MATERIAL_VIEW_LIST, ev->{
+                ShowActiveVoyage v;
+                try 
+                {
+                    v = new ShowActiveVoyage();
+                    v.getFR().show();
+                } catch (IOException ex) {}
+            });
+        }  
         
         tb.addMaterialCommandToSideMenu("Event" , FontImage.MATERIAL_EVENT, e ->{
+            GuiEvent event = new GuiEvent();
+            event.getF().show();
+
         });
         
-        tb.addMaterialCommandToSideMenu("Hotel" , FontImage.MATERIAL_HOTEL, e ->{});
+        tb.addMaterialCommandToSideMenu("Hotel" , FontImage.MATERIAL_HOTEL, e ->{
+            if(MyApplication.current_user.getId()> 0)
+            {
+                ShowActiveHotels h = new ShowActiveHotels();
+                h.getF().show();
+            }
+            else
+            {
+                path = "hotel";
+                System.out.println("path: hotel");
+                Login login = new Login();
+                login.getF().show();
+            }
+        });
         
         if(MyApplication.current_user.getId() > 0)
         {
@@ -92,12 +150,16 @@ public class Acceuil {
         else
         {
             tb.addMaterialCommandToSideMenu("Login" , FontImage.MATERIAL_ACCOUNT_CIRCLE, e ->{
-            Login login = new Login();
-            login.getF().show();
+                path = "acceuil";
+                Login login = new Login();
+                login.getF().show();
             });
         }
         
-        tb.addMaterialCommandToSideMenu("About" , FontImage.MATERIAL_INFO, e ->{});
+        tb.addMaterialCommandToSideMenu("About" , FontImage.MATERIAL_INFO, e ->{
+            GuiActive a =new GuiActive();
+            a.getF().show();
+        });
 
         
        Container C = new Container();
@@ -279,7 +341,7 @@ public class Acceuil {
         content.add(call);
         content.add(email);
         footer.add(content);
-        f.add(footer);
+        f.add(BorderLayout.south(footer));
         
     }
 

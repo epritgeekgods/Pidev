@@ -7,14 +7,9 @@
             <file>file:/Users/shai/dev/CodenameOne/NBPlugin/Pidev/build.xml</file>
         </group>
         <group name="Classroom">
-            <file>file:/D:/SprintMobile/Pidev/src/pidev/esprit/gui/ShowActiveExcursion.java</file>
-            <file>file:/D:/SprintMobile/Pidev/src/pidev/esprit/gui/AffichageExcursion.java</file>
-            <file>file:/D:/SprintMobile/Pidev/src/pidev/esprit/Entity/User.java</file>
             <file>file:/D:/SprintMobile/Pidev/src/pidev/esprit/Service/ServiceExcursion.java</file>
-            <file>file:/D:/SprintMobile/Pidev/src/pidev/esprit/gui/Login.java</file>
+            <file>file:/D:/SprintMobile/Pidev/src/pidev/esprit/gui/GuiEvent.java</file>
             <file>file:/D:/SprintMobile/Pidev/src/pidev/esprit/gui/Acceuil.java</file>
-            <file>file:/D:/SprintMobile/Pidev/src/com/mycompany/myapp/MyApplication.java</file>
-            <file>file:/D:/SprintMobile/Pidev/src/pidev/esprit/Service/ServiceUser.java</file>
         </group>
     </open-files>
 </project-private>
